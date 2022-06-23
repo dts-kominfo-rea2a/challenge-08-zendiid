@@ -5,37 +5,107 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Challenge - DOM</title>
+    <style>
+      body {
+        font-family: sans-serif;
+        background-color: #7177c0;
+        display: flex;
+        justify-content: center;
+        margin-top: 3em;
+      }
+      #app {
+        background-color: aliceblue;
+        display: flex;
+        flex-direction: column;
+        align-content: center;
+        border-radius: 0.5em;
+        padding: 1em 2em;
+        height: 50vmin;
+        width: 300px;
+      }
+      #todo-title {
+        text-align: center;
+        margin: 2vh 10vh;
+        background-color: mediumaquamarine;
+        border-radius: 0.2em;
+        padding: 0.1em 0.3em;
+      }
+      #todo-subtitle {
+        text-align: center;
+        margin-top: 5vh;
+        margin-bottom: 2vh;
+      }
+      #input {
+        display: flex;
+        flex-direction: row;
+      }
+      #todo-input,
+      #todo-submit #todo-output {
+        justify-content: center;
+        margin-right: 10px auto;
+      }
+      #todo-input {
+        border-radius: 0.3em;
+        margin: auto;
+      }
+      #todo-input:hover,
+      #todo-input:focus {
+        border-color: cornflowerblue;
+      }
+      #todo-submit {
+        border: none;
+      }
+    </style>
   </head>
   <body>
     <div id="app">
       <!-- TODO: Buatlah sebuah header dengan id todo-title -->
+      <div id="todo-title">To-Do List</div>
       <!-- TODO: Buatlah sebuah subtitle dengan id todo-subtitle -->
-
+      <div id="todo-subtitle">~ Today I need to ~</div>
       <!-- Section: input -->
-      <!-- TODO: Buatlah sebuah input bertipe text dengan id todo-input -->
-      <!-- TODO: Buatlah sebuah button dengan id todo-submit -->
+      <section id="input">
+        <!-- TODO: Buatlah sebuah input bertipe text dengan id todo-input -->
+        <input type="text" id="todo-input" />
+        <!-- TODO: Buatlah sebuah button dengan id todo-submit -->
+        <button id="todo-submit">Submit</button>
+      </section>
 
       <!-- Section output -->
       <!-- TODO: Buatlah sebuah <ul> dengan id todo-output -->
+      <ul id="todo-output"></ul>
     </div>
 
     <!-- ! Untuk tantangan ini, script jangan diubah ke external js yah ! -->
     <script>
       // TODO: Deklarasi variable sesuai dengan kebutuhan di sini
-      let button;
-      let input;
-      let output;
+      let button = document.getElementById("todo-submit");
+      let input = document.getElementById("todo-input");
+      let output = document.getElementById("todo-output");
 
       // TODO: Buatlah sebuah fungsi dengan nama fnClickHandler
       // Fungsi yang digunakan untuk menambahkan tulisan
       // Jangan ubah cara deklarasi fungsinya, cukup isi saja
-      function fnClickHandler(toDoItem) {}
+      function fnClickHandler(toDoItem) {
+        let isiInput = input.value;
+        let daftar = document.createElement("li");
+        daftar.appendChild(document.createTextNode(isiInput));
+        output.append(daftar);
+        input.value = "";
+      }
 
       // TODO: register event onclick / addEventListener untuk button
       // akan menjalankan fungsi fnClickHandler
-      
+      button.addEventListener("click", fnClickHandler);
+
       // TODO: register event onkeypress / addEventListener untuk input
       // sehingga saat di input ditekan enter akan menjalankan fungsi fnClickHandler juga
+      const keyPressHandler = (event) => {
+        if (event.key === "Enter") {
+          fnClickHandler();
+        }
+      };
+      input.addEventListener("keypress", keyPressHandler);
     </script>
   </body>
 </html>
